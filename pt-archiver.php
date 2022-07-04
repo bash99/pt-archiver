@@ -13,7 +13,7 @@ $mysql_table='t1';
 #$where_column="update_time >= DATE_FORMAT(DATE_SUB(now(),interval 10 day),'%Y-%m-%d')";
 $where_column="id>=1";
 $limit_chunk='10000';	 ###分批次插入，默认一批插入10000行
-$insert_sleep='1';   	 ###每次插完10000行休眠1秒
+$insert_sleep='0.1';   	 ###每次插完10000行休眠1秒
 ###############################################
 
 
@@ -157,7 +157,7 @@ echo "插入行数是: " . mysqli_affected_rows($conn) . PHP_EOL;
 if ($result4) {
     if(mysqli_affected_rows($conn)>=1){
     	echo "${mysql_table}_tmp临时表插入成功" . PHP_EOL;
-	sleep($insert_sleep);
+	usleep($insert_sleep * 1000000);
     }
     else if($begin_Id<$max_Id){
 	continue;
